@@ -390,6 +390,8 @@ export function createNoteTitle(
 	);
 	exportTitle = exportTitle.replace("{{citekey}}", selectedEntry.citationKey);
 
+	exportTitle = exportTitle.replace("{{itemType}}", selectedEntry.itemType);
+
 	exportTitle = exportTitle.replace("{{title}}", selectedEntry.title);
 
 	exportTitle = exportTitle.replace("{{author}}", selectedEntry.authorKey);
