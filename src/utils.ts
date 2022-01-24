@@ -564,11 +564,13 @@ export function openSelectedNote(
 	exportTitle: string,
 	exportPath: string
 ) {
-	const noteTitleFull = createNoteTitle(
-		selectedEntry,
-		exportTitle,
-		exportPath
-		//this.zoteroBuildWindows
+	const noteTitleFull = normalizePath(
+		createNoteTitle(
+			selectedEntry,
+			exportTitle,
+			exportPath
+			//this.zoteroBuildWindows
+		)
 	);
 
 	//remove from the path of the note to be exported the path of the vault
@@ -580,6 +582,6 @@ export function openSelectedNote(
 	//Find the TFile
 	const myFile = this.app.vault.getAbstractFileByPath(noteTitleShort);
 
-	//Open the Note ina new leaf
+	//Open the Note in a new leaf
 	this.app.workspace.getUnpinnedLeaf().openFile(myFile);
 }
