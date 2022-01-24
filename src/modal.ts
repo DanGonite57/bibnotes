@@ -2,7 +2,6 @@ import MyPlugin from "./main";
 import * as fs from "fs";
 import { App, Modal, FuzzySuggestModal, Notice, Platform } from "obsidian";
 
-
 import { Reference, AnnotationElements } from "./types";
 
 import {
@@ -11,7 +10,6 @@ import {
 	openSelectedNote,
 	orderByDateModified,
 } from "./utils";
-
 
 export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
 	plugin: MyPlugin;
@@ -23,7 +21,7 @@ export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
 		config: Record<string, never>;
 		items: Reference[];
 		version: string;
-		__proto__: Record<string, never>; 
+		__proto__: Record<string, never>;
 	};
 	keyWordArray: string[];
 	noteElements: AnnotationElements[];
@@ -47,11 +45,7 @@ export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
 		//Create the full path
 
 		//const data = require(this.app.vault.adapter.getBasePath() + "/" + this.plugin.settings.bibPath)
-		const rawdata = fs.readFileSync(
-			this.app.vault.adapter.getBasePath() +
-				"/" +
-				this.plugin.settings.bibPath
-		);
+		const rawdata = fs.readFileSync(this.plugin.settings.bibPath);
 		const data = JSON.parse(rawdata.toString()); // rawdata is a buffer, convert to string
 
 		//const checkAdmonition  = this.app.plugins.getPlugin("obsidian-admonition")._loaded
@@ -73,11 +67,11 @@ export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
 			// console.log(bibtexArrayItem.title)
 
 			// Extract the date
-			bibtexArrayItem.date = selectedEntry.date
- 			if (selectedEntry.hasOwnProperty("date")){
- 				selectedEntry.year = selectedEntry.date.match(/\d\d\d\d/gm)
- 				bibtexArrayItem.date = selectedEntry.year
-			 }
+			bibtexArrayItem.date = selectedEntry.date;
+			if (selectedEntry.hasOwnProperty("date")) {
+				selectedEntry.year = selectedEntry.date.match(/\d\d\d\d/gm);
+				bibtexArrayItem.date = selectedEntry.year;
+			}
 			// console.log(bibtexArrayItem.date)
 
 			//Extract the author
@@ -213,11 +207,7 @@ export class updateLibrary extends Modal {
 		console.log("Updating Zotero library");
 		//const data = require(this.app.vault.adapter.getBasePath() + "/" + this.plugin.settings.bibPath)
 
-		const rawdata = fs.readFileSync(
-			this.app.vault.adapter.getBasePath() +
-				"/" +
-				this.plugin.settings.bibPath
-		);
+		const rawdata = fs.readFileSync(this.plugin.settings.bibPath);
 		const data = JSON.parse(rawdata.toString()); // rawdata is a buffer, converted to string
 
 		const bibtexArray: string[] = [];
