@@ -131,8 +131,8 @@ export default class MyPlugin extends Plugin {
 			isHighlightHighlighted ? "==" : "",
 			isHighlightBullet ? "- " : "",
 			isHighlightBlockquote ? "> " : "",
-			isHighlightQuote ? "“" : "",
-			isHighlightQuote ? "”" : "",
+			isHighlightQuote ? '"' : "",
+			isHighlightQuote ? '"' : "",
 		];
 
 		const highlightFormatBefore =
@@ -158,8 +158,8 @@ export default class MyPlugin extends Plugin {
 		const commentHighlighted = isCommentHighlighted ? "==" : "";
 		const commentBullet = isCommentBullet ? "- " : "";
 		const commentBlockquote = isCommentBlockquote ? "> " : "";
-		const commentQuoteOpen = isCommentQuote ? "“" : "";
-		const commentQuoteClose = isCommentQuote ? "”" : "";
+		const commentQuoteOpen = isCommentQuote ? '"' : "";
+		const commentQuoteClose = isCommentQuote ? '"' : "";
 
 		//Create formatting to be added before and after highlights
 		const commentFormatBefore =

@@ -9,7 +9,11 @@ import {
 
 import path from "path";
 
-import { TEMPLATE_BRACKET_REG, TEMPLATE_REG } from "./constants";
+import {
+	TEMPLATE_BRACKET_REG,
+	TEMPLATE_REG,
+	ITEMTYPE_ALIAS,
+} from "./constants";
 
 export function replaceAllTemplates(
 	entriesArray: string[],
@@ -195,7 +199,7 @@ export const createCreatorList = (
 	// console.log(creatorList);
 
 	const creatorListBracket = creatorList.map(makeWiki);
-	console.log(creatorListBracket) 
+	console.log(creatorListBracket)
 
 	const creatorListQuotes = creatorList.map(makeQuotes);
 
@@ -391,6 +395,9 @@ export function createNoteTitle(
 	);
 	exportTitle = exportTitle.replace("{{citekey}}", selectedEntry.citationKey);
 
+	if (ITEMTYPE_ALIAS.has(selectedEntry.itemType)) {
+		selectedEntry.itemType = ITEMTYPE_ALIAS.get(selectedEntry.itemType);
+	}
 	exportTitle = exportTitle.replace("{{itemType}}", selectedEntry.itemType);
 
 	exportTitle = exportTitle.replace("{{title}}", selectedEntry.title);
