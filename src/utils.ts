@@ -136,6 +136,43 @@ export function orderByDateModified(a: Reference, b: Reference) {
 	return 0;
 }
 
+export function formatCreatorsName(creator: Creator, nameCustom: string) {
+	// when the creator only has a name (no first or last name) this works just fine
+	if (creator.hasOwnProperty("name")) {
+		nameCustom = creator.name;
+		nameCustom = nameCustom.trim();
+		return nameCustom;
+	} else if (
+		creator.hasOwnProperty("lastName") &&
+		creator.hasOwnProperty("firstName")
+	) {
+		nameCustom = nameCustom.replace("{{lastName}}", creator.lastName);
+		nameCustom = nameCustom.replace("{{firstName}}", creator.firstName);
+		nameCustom = nameCustom.trim();
+		return nameCustom;
+	} else if (
+		creator.hasOwnProperty("lastName") &&
+		!creator.hasOwnProperty("firstName")
+	) {
+		nameCustom = nameCustom.replace("{{lastName}}", creator.lastName);
+		nameCustom = nameCustom.replace("; {{firstName}}", creator.firstName);
+		nameCustom = nameCustom.replace(", {{firstName}}", creator.firstName);
+		nameCustom = nameCustom.replace("{{firstName}}", "");
+		nameCustom = nameCustom.trim();
+		return nameCustom;
+	} else if (
+		!creator.hasOwnProperty("lastName") &&
+		creator.hasOwnProperty("firstName")
+	) {
+		nameCustom = nameCustom.replace("; {{lastName}}", creator.firstName);
+		nameCustom = nameCustom.replace(", {{lastName}}", creator.firstName);
+		nameCustom = nameCustom.replace("{{lastName}}", "");
+		nameCustom = nameCustom.replace("{{firstName}}", creator.firstName);
+		nameCustom = nameCustom.trim();
+		return nameCustom;
+	}
+}
+
 //Function that create an array with the creators of a given type (e.g. author, editor)
 export const createCreatorList = (
 	creators: CreatorArray,
@@ -147,96 +184,19 @@ export const createCreatorList = (
 	const creatorList: string[] = [];
 	for (let creatorindex = 0; creatorindex < creators.length; creatorindex++) {
 		const creator: Creator = creators[creatorindex]; //select the author
-		let nameCustom: string = nameFormat;
+		console.log(creator)
 
 		if (creator.creatorType === typeCreator) {
-			// if(creator.hasOwnProperty('name')){
-			// 	creatorList.push(creator.name)
-			// 	} else
-			// if (creator.hasOwnProperty('lastName')&& creator.hasOwnProperty('firstName')){
-			// 	creatorList.push(creator.lastName + ", " + creator.firstName)
-			// 	} else
-			// if (creator.hasOwnProperty('lastName')&& !creator.hasOwnProperty('firstName')){
-			// 	creatorList.push(creator.lastName)
-			// 	} else
-			// if (!creator.hasOwnProperty('lastName')&& creator.hasOwnProperty('firstName')){
-			// 	creatorList.push(creator.firstName)
-			// 	}
-			if (creator.hasOwnProperty("name")) {
-				nameCustom = nameCustom.replace("{{lastName}}", creator.name);
-				nameCustom = nameCustom.replace(
-					"; {{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace(
-					", {{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace(
-					"{{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.trim();
-				creatorList.push(nameCustom);
-			} else if (
-				creator.hasOwnProperty("lastName") &&
-				creator.hasOwnProperty("firstName")
-			) {
-				nameCustom = nameCustom.replace(
-					"{{lastName}}",
-					creator.lastName
-				);
-				nameCustom = nameCustom.replace(
-					"{{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.trim();
-				creatorList.push(nameCustom);
-			} else if (
-				creator.hasOwnProperty("lastName") &&
-				!creator.hasOwnProperty("firstName")
-			) {
-				creatorList.push(creator.lastName);
-				nameCustom = nameCustom.replace(
-					"{{lastName}}",
-					creator.lastName
-				);
-				nameCustom = nameCustom.replace(
-					"; {{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace(
-					", {{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace("{{firstName}}", "");
-				nameCustom = nameCustom.trim();
-				creatorList.push(nameCustom);
-			} else if (
-				!creator.hasOwnProperty("lastName") &&
-				creator.hasOwnProperty("firstName")
-			) {
-				nameCustom = nameCustom.replace(
-					"; {{lastName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace(
-					", {{lastName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.replace("{{lastName}}", "");
-				nameCustom = nameCustom.replace(
-					"{{firstName}}",
-					creator.firstName
-				);
-				nameCustom = nameCustom.trim();
-				creatorList.push(nameCustom);
-			}
+			creatorList.push(formatCreatorsName(creator, nameFormat));
 		}
+		console.log(creatorList)
 	}
-	//console.log(creatorList)
+
+	// console.log(creatorList);
 
 	const creatorListBracket = creatorList.map(makeWiki);
+	console.log(creatorListBracket) 
+
 	const creatorListQuotes = creatorList.map(makeQuotes);
 
 	//add a space after the divided if it is not present
@@ -262,6 +222,47 @@ export const createCreatorList = (
 			`{{${typeCreator}}}`,
 			creatorList.join(divider)
 		);
+
+		return note;
+	}
+};
+
+export const createCreatorAllList = (
+	creators: CreatorArray,
+	note: string,
+	divider: string,
+	nameFormat: string
+) => {
+	const creatorList: string[] = [];
+	for (let creatorindex = 0; creatorindex < creators.length; creatorindex++) {
+		const creator: Creator = creators[creatorindex]; //select the author
+		creatorList.push(formatCreatorsName(creator, nameFormat));
+	}
+
+	const creatorListBracket = creatorList.map(makeWiki);
+	const creatorListQuotes = creatorList.map(makeQuotes);
+
+	//add a space after the divided if it is not present
+	if (divider.slice(-1) !== " ") {
+		divider = divider + " ";
+	}
+
+	if (creatorList.length == 0) {
+		return note;
+	} else {
+		note = replaceTemplate(
+			note,
+			`[[{{creator}}]]`,
+			creatorListBracket.join(divider)
+		);
+		note = replaceTemplate(
+			note,
+			`"{{creator}}"`,
+			creatorListQuotes.join(divider)
+		);
+		note = replaceTemplate(note, `{{creator}}`, creatorList.join(divider));
+		note = replaceTemplate(note, `{{Creator}}`, creatorList.join(divider));
+
 
 		return note;
 	}
@@ -362,7 +363,7 @@ export function createLocalFileLink(reference: Reference) {
 		const selectedfile: string =
 			"[" +
 			reference.attachments[attachmentindex].title +
-			"](file:/" +
+			"](file://" + // added an extra "/" to make it work on Linux
 			attachmentPathCorrected +
 			")"; //select the author
 

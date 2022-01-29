@@ -112,8 +112,6 @@ export const templateAdmonition =
 
 export const DEFAULT_SETTINGS: MyPluginSettings = {
 	bibPath: "",
-	exportMetadata: true,
-	exportAnnotations: true,
 	templateContent: templatePlain,
 	templatePath: "",
 	templateType: "Admonition",
@@ -132,6 +130,7 @@ export const DEFAULT_SETTINGS: MyPluginSettings = {
 	keyMergeAbove: "+",
 	keyCommentPrepend: "%",
 	commentPrependDefault: false,
+	commentPrependDivider: ": ",
 	keyH1: "#",
 	keyH2: "##",
 	keyH3: "###",

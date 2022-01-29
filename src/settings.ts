@@ -78,35 +78,11 @@ export class SettingTab extends PluginSettingTab {
 		);	
 
 		
-		new Setting(settingsExport)
-			.setName("Extract Metadata")
-			.setDesc(
-				'Select "Yes" to extract the metadata at the beginning of the note, "No" to extract only the title and the author/s'
-			)
-			.addToggle((text) =>
-				text
-					.setValue(settings.exportMetadata)
-					.onChange(async (value) => {
-						settings.exportMetadata = value;
-						await plugin.saveSettings();
-						this.display();
-					})
-			);
+
 		
-			new Setting(settingsExport)
-			.setName("Extract Annotations")
-			.addToggle((text) =>
-				text
-					.setValue(settings.exportAnnotations)
-					.onChange(async (value) => {
-						settings.exportAnnotations = value;
-						await plugin.saveSettings();
-						this.display();
-					})
-			);
 
 
-		if (settings.exportMetadata) {
+		
 
 			new Setting(settingsExport)
 				.setName("Select Template")
@@ -217,8 +193,7 @@ export class SettingTab extends PluginSettingTab {
 				)
 			)
 
-		}
-		if (settings.exportAnnotations) {
+	
 
 			new Setting(settingsExport)
 			.setName("Save Manual Edits")
@@ -315,11 +290,12 @@ export class SettingTab extends PluginSettingTab {
 			new Setting(settingsCitations)
 				.setName("End of Highlight Citation Format")
 				.setDesc(
-					"Select the style of the reference added next to the highlights and figures extracted from the PDF"
+					"Select the style of the reference added next to the highlights and figures extracted from the PDF. This feature is for now available only for sources extracted from Zotero"
 				)
 				.addDropdown((d) => {
 					d.addOption("Author, year, page number", "Author, year, page number");
 					d.addOption("Only page number", "Only page number");
+					d.addOption("Pandoc", "Pandoc");
 					d.addOption("Empty", "Empty");
 					d.setValue(settings.highlightCitationsFormat);
 					d.onChange(
@@ -327,6 +303,7 @@ export class SettingTab extends PluginSettingTab {
 							v:
 								| "Author, year, page number"
 								| "Only page number"
+								| "Pandoc"	
 								| "Empty"
 						) => {
 							settings.highlightCitationsFormat = v;
@@ -462,8 +439,7 @@ export class SettingTab extends PluginSettingTab {
 							await plugin.saveSettings();
 						})
 				);
-		}
-		if (settings.exportAnnotations) {
+		
 			containerEl.createEl('h3', {text: 'Comments'});
 			const settingsComments: HTMLDetailsElement =
 				containerEl.createEl("details");
@@ -561,7 +537,6 @@ export class SettingTab extends PluginSettingTab {
 						})
 				);
 
-			if (settings.exportAnnotations) {
 				containerEl.createEl('h3', {text: 'Additional Transformations'});
 				const settingsAdvanced: HTMLDetailsElement =
 					containerEl.createEl("details");
@@ -746,7 +721,17 @@ export class SettingTab extends PluginSettingTab {
 								}
 							})
 					);
-
+					
+					new Setting(settingsAdvanced)
+					.setDesc("Text placed between the comment and the related highlight")
+					.addText((text) =>
+					text
+						.setValue(settings.commentPrependDivider)
+						.onChange(async (value) => {
+							settings.commentPrependDivider = value;
+							await plugin.saveSettings();
+						})
+				);
 					new Setting(settingsAdvanced)
 					.setDesc("Always place the comment made to an highlight before the text of the highlight")
 					.addToggle((text) =>
@@ -759,6 +744,7 @@ export class SettingTab extends PluginSettingTab {
 						})
 					);
 
+					//commentPrependDivider
 				new Setting(settingsAdvanced)
 					.setName("Transform the highlight/comment into a task")
 					.addText((text) =>
@@ -911,7 +897,7 @@ export class SettingTab extends PluginSettingTab {
 						await plugin.saveSettings();
 					})); 		
  
-			}
+			
 			containerEl.createEl('h2', {text: 'Import Images'});
 		
 
@@ -934,7 +920,7 @@ export class SettingTab extends PluginSettingTab {
 				);
 			new Setting(importImages)
 				.setName("Zotero Local Folder")
-				.setDesc(`Add the path on your computer where Zotero's data is stored (e.g. "/Users/yourusername/Zotero"). This field is required only when this is different from the folder where the PDF files are stored. To retrieve this information, open Zotero --> Preferences --> Advanced --> Files and Folder, and copy the "data directory location"`)
+				.setDesc(`Add the path on your computer where Zotero's data is stored (e.g. "/Users/yourusername/Zotero/storage"). This field is required only when this is different from the folder where the PDF files are stored. To retrieve this information, open Zotero --> Preferences --> Advanced --> Files and Folder, and copy the "data directory location"`)
 				.addText((text) =>
 				text
 					.setValue(settings.zoteroStoragePathManual)
@@ -994,7 +980,7 @@ export class SettingTab extends PluginSettingTab {
 							}
 						);
 					}
-			}	
+				
 			containerEl.createEl('h2', {text: 'Debugging'});
 		
 
