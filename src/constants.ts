@@ -188,6 +188,7 @@ export enum HeaderLevels {
 export const TEMPLATE_REG = /\{\{[^}]+\}\}/g;
 export const TEMPLATE_BRACKET_REG = /\[\[\{\{[^}]+\}\}\]\]/g;
 
-export const ITEMTYPE_ALIAS = {
-	journalArticle: "article",
-};
+export const ITEMTYPE_ALIAS = new Map<string, string>([
+	["journalArticle", "article"],
+	["conferencePaper", "inproceedings"],
+]);

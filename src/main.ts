@@ -16,6 +16,7 @@ import {
 	DEFAULT_SETTINGS,
 	templateAdmonition,
 	templatePlain,
+	ITEMTYPE_ALIAS,
 } from "./constants";
 
 //Import modals from /modal.ts
@@ -226,6 +227,11 @@ export default class MyPlugin extends Plugin {
 		if (selectedEntry.hasOwnProperty("select")) {
 			selectedEntry.localLibrary =
 				"[Zotero](" + selectedEntry.select + ")";
+		}
+
+		//Translate json item types to bibtex
+		if (ITEMTYPE_ALIAS.has(selectedEntry.itemType)) {
+			selectedEntry.itemType = ITEMTYPE_ALIAS.get(selectedEntry.itemType);
 		}
 
 		//create field file

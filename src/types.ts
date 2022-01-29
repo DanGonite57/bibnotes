@@ -1,5 +1,3 @@
-
-
 export interface MyPluginSettings {
 	bibPath: string;
 	templateContent: string;
