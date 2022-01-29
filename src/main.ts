@@ -446,7 +446,7 @@ export default class MyPlugin extends Plugin {
 				firstBlank = annotationCommentAll.length;
 			}
 			lineElements.commentText =
-				lineElements.annotationType === "noKey" 
+				lineElements.annotationType === "noKey"
 					? lineElements.commentText
 					: lineElements.commentText
 							.substring(
@@ -1037,7 +1037,7 @@ export default class MyPlugin extends Plugin {
 				lineElements.zoteroBackLink = "";
 			}
 
-			//Extract the custom language assocaited with the highlight colour
+			//Extract the custom language associated with the highlight colour
 			let colourTextBefore = lineElements.colourTextBefore;
 			if (colourTextBefore == undefined) {
 				colourTextBefore = "";
@@ -1069,7 +1069,7 @@ export default class MyPlugin extends Plugin {
 					// Check if the user settings has approved the importing of images
 
 					pathImageOld = path.format({
-						dir: this.pathZoteroStorage + lineElements.imagePath, 
+						dir: this.pathZoteroStorage + lineElements.imagePath,
 						base: "image.png",
 					});
 
@@ -1085,9 +1085,10 @@ export default class MyPlugin extends Plugin {
 								citeKey + "_" + lineElements.imagePath + ".png",
 						})
 					);
-				
 
-					if (this.zoteroBuildWindows == false){pathImageNew = "/" + pathImageNew}
+					if (this.zoteroBuildWindows == false) {
+						pathImageNew = "/" + pathImageNew;
+					}
 					console.log(pathImageOld);
 					console.log(pathImageNew);
 
@@ -1097,7 +1098,7 @@ export default class MyPlugin extends Plugin {
 						fs.existsSync(pathImageOld) ||
 						fs.existsSync(pathImageNew)
 					) {
-						//if the settings is to link to the image in teh zotero folder
+						//if the settings is to link to the image in the zotero folder
 						if (this.settings.imagesCopy === false) {
 							lineElements.rowEdited =
 								"![](file:///" + pathImageOld + ")";
@@ -1172,10 +1173,15 @@ export default class MyPlugin extends Plugin {
 				indexRowsToBeRemoved.push(i - 1);
 			}
 
-
 			//PREPEND COMMENT TO THE HIGHLIGHTED SENTENCE
 			//check the setting commentPrependDefault. If true, then everytime there is an highlight with a comment, prepend the comment to the highlight
-			if(this.settings.commentPrependDefault=== true && lineElements.highlightText !== "" && lineElements.commentText !== ""){lineElements.annotationType = "typeCommentPrepend"} 
+			if (
+				this.settings.commentPrependDefault === true &&
+				lineElements.highlightText !== "" &&
+				lineElements.commentText !== ""
+			) {
+				lineElements.annotationType = "typeCommentPrepend";
+			}
 			//commentPrependDefault
 			if (lineElements.annotationType === "typeCommentPrepend") {
 				//add the comment before the highlight
@@ -1294,8 +1300,6 @@ export default class MyPlugin extends Plugin {
 						lineElements.zoteroBackLink;
 				}
 			}
-
-	
 
 			//Copy the edited text into an array to be exported
 			noteElementsArray.push(lineElements);
@@ -2158,9 +2162,9 @@ export default class MyPlugin extends Plugin {
 			fs.existsSync(noteTitleFull)
 		) {
 			//Check if the settings in settings.saveManualEdits are TRUE. In that case compare existing file with new notes. If false don't look at existing note
-			//Check if an old version exists. If the old version has annotations then add the new annotation to the old annotaiton
+			//Check if an old version exists. If the old version has annotations then add the new annotation to the old annotation
 
-			//Extract the reference within bracket to faciliate comparison
+			//Extract the reference within bracket to facilitate comparison
 			const authorKey = createAuthorKey(selectedEntry.creators);
 			const existingNoteAll = String(fs.readFileSync(noteTitleFull));
 			litnote = this.compareOldNewNote(

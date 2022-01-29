@@ -78,7 +78,7 @@ export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
 			bibtexArrayItem.authorKey = createAuthorKey(selectedEntry.creators);
 			// console.log(bibtexArrayItem.authorKey)
 
-			//Extract the date the entri was modified
+			//Extract the date the entry was modified
 			bibtexArrayItem.dateModified = selectedEntry.dateModified;
 			// console.log(bibtexArrayItem.dateModified)
 
@@ -231,7 +231,7 @@ export class updateLibrary extends Modal {
 			if (datemodified < lastUpdate) continue; //skip if it was modified before the last update
 			//console.log(datemodified>lastUpdate)
 
-			//skip if the setting is to update only existing note and th enote is not found at the give folder
+			//skip if the setting is to update only existing note and the note is not found at the given folder
 			if (
 				this.plugin.settings.updateLibrary ===
 					"Only update existing notes" &&
