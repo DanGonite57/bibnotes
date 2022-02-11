@@ -188,18 +188,14 @@ export const createCreatorList = (
 	const creatorList: string[] = [];
 	for (let creatorindex = 0; creatorindex < creators.length; creatorindex++) {
 		const creator: Creator = creators[creatorindex]; //select the author
-		console.log(creator)
-
 		if (creator.creatorType === typeCreator) {
 			creatorList.push(formatCreatorsName(creator, nameFormat));
 		}
-		console.log(creatorList)
 	}
 
 	// console.log(creatorList);
 
 	const creatorListBracket = creatorList.map(makeWiki);
-	console.log(creatorListBracket)
 
 	const creatorListQuotes = creatorList.map(makeQuotes);
 
@@ -267,7 +263,6 @@ export const createCreatorAllList = (
 		note = replaceTemplate(note, `{{creator}}`, creatorList.join(divider));
 		note = replaceTemplate(note, `{{Creator}}`, creatorList.join(divider));
 
-
 		return note;
 	}
 };
@@ -276,11 +271,11 @@ export function createTagList(tagList: string[], note: string) {
 	if (tagList.length == 0) {
 		return note;
 	} else {
-		const tagListBraket = tagList.map(makeWiki);
+		const tagListBracket = tagList.map(makeWiki);
 		note = replaceTemplate(
 			note,
 			`[[{{keywords}}]]`,
-			String(tagListBraket.join("; "))
+			String(tagListBracket.join("; "))
 		);
 		note = replaceTemplate(
 			note,
