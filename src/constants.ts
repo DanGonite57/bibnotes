@@ -61,57 +61,42 @@ export const templateAdmonition =
 	"\n" +
 	"{{citekey}}\n" +
 	"\n" +
-	"``` ad-info\n" +
-	"title: Metadata\n" +
-	"collapse: close\n" +
-	"- **CiteKey**: {{citekey}}\n" +
-	"- **Type**: {{itemType}}\n" +
-	"- **Author**: {{author}}\n" +
-	"- **Editor**: {{editor}}\n" +
-	"- **Translator**: {{translator}}\n" +
-	"- **Publisher**: {{publisher}}\n" +
-	"- **Location**: {{place}}\n" +
-	"- **Series**: {{series}}\n" +
-	"- **Series Number**: {{seriesNumber}}\n" +
-	"- **Journal**: {{publicationTitle}}\n" +
-	"- **Volume**: {{volume}}\n" +
-	"- **Issue**: {{issue}}\n" +
-	"- **Pages**: {{pages}}\n" +
-	"- **Year**: {{year}} \n" +
-	"- **DOI**: [{{DOI}}](https://doi.org/{{DOI}})\n" +
-	"- **ISSN**: {{ISSN}}\n" +
-	"- **ISBN**: {{ISBN}}\n" +
-	"```\n" +
-	"```ad-quote\n" +
-	"title: Abstract\n" +
-	"collapse: close\n" +
-	"{{abstractNote}}\n" +
-	"```\n" +
-	"```ad-abstract\n" +
-	"title: Files and Links\n" +
-	"collapse: close\n" +
-	"- **Url**: {{url}}\n" +
-	"- **Uri**: {{uri}}\n" +
-	"- **Eprint**: {{eprint}}\n" +
-	"- **File**: {{file}}\n" +
-	"- **Local Library**: {{localLibrary}}\n" +
-	"```\n" +
-	"```ad-note\n" +
-	"title: Tags and Collections\n" +
-	"collapse: close\n" +
-	"- **Keywords**: {{keywordsAll}}\n" +
-	"```\n" +
+	"> [!info]- Metadata\n" +
+	"> - **CiteKey**: {{citekey}}\n" +
+	"> - **Type**: {{itemType}}\n" +
+	"> - **Author**: {{author}}\n" +
+	"> - **Editor**: {{editor}}\n" +
+	"> - **Translator**: {{translator}}\n" +
+	"> - **Publisher**: {{publisher}}\n" +
+	"> - **Location**: {{place}}\n" +
+	"> - **Series**: {{series}}\n" +
+	"> - **Series Number**: {{seriesNumber}}\n" +
+	"> - **Journal**: {{publicationTitle}}\n" +
+	"> - **Volume**: {{volume}}\n" +
+	"> - **Issue**: {{issue}}\n" +
+	"> - **Pages**: {{pages}}\n" +
+	"> - **Year**: {{year}} \n" +
+	"> - **DOI**: [{{DOI}}](https://doi.org/{{DOI}})\n" +
+	"> - **ISSN**: {{ISSN}}\n" +
+	"> - **ISBN**: {{ISBN}}\n" +
 	"\n" +
-	"----" +
+	"> [!quote]- Abstract\n" +
+	"> {{abstractNote}}\n" +
 	"\n" +
+	"> [!abstract]- Files and Links\n" +
+	"> - **Url**: {{url}}\n" +
+	"> - **Uri**: {{uri}}\n" +
+	"> - **Eprint**: {{eprint}}\n" +
+	"> - **File**: {{file}}\n" +
+	"> - **Local Library**: {{localLibrary}}\n" +
 	"\n" +
+	"> [!note]- Tags and Collections\n" +
+	"> - **Keywords**: {{keywordsAll}}\n" +
+	"\n" +
+	"----\n" +
 	"## Comments\n" +
 	"{{UserNotes}}\n" +
-	"\n" +
-	"\n" +
-	"----" +
-	"\n" +
-	"\n" +
+	"----\n" +
 	"## Extracted Annotations\n" +
 	"{{PDFNotes}}";
 
@@ -196,4 +181,6 @@ export const TEMPLATE_BRACKET_REG = /\[\[\{\{[^}]+\}\}\]\]/g;
 export const ITEMTYPE_ALIAS = new Map<string, string>([
 	["journalArticle", "article"],
 	["conferencePaper", "inproceedings"],
+	["videoRecording", "video"],
+	["bookSection", "inbook"],
 ]);
