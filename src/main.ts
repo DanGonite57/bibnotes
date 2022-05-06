@@ -2127,6 +2127,15 @@ export default class MyPlugin extends Plugin {
 		let litnote: string = this.parseMetadata(selectedEntry, templateNote);
 		bugout.log(selectedEntry);
 
+		if (
+			selectedEntry.tags.some((tag) => {
+				return tag.tag === "no-export";
+			})
+		) {
+			new Notice(`Skipped ${selectedEntry.citationKey}!`);
+			return;
+		}
+
 		//Extract the list of collections
 		litnote = this.parseCollection(selectedEntry, data, litnote);
 

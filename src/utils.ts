@@ -404,18 +404,19 @@ export function createNoteTitle(
 	exportTitle = exportTitle.replace("{{date}}", selectedEntry.year);
 
 	//Remove special characters from the name of the file
+	exportTitle = exportTitle.replace(" ", " ");
 	while (exportTitle.contains("  ")) {
 		exportTitle = exportTitle.replace("  ", " ");
 	}
+	exportTitle = exportTitle.replace("? ", "- ");
 	exportTitle = exportTitle.replace('"', "'");
 	exportTitle = exportTitle.replace(": ", " - ");
-	exportTitle = exportTitle.replace("? ", "- ");
 	while (exportTitle.contains("  ")) {
 		exportTitle = exportTitle.replace("  ", " ");
 	}
-	exportTitle = exportTitle.replace(/<\/*i>/g, "");
+	exportTitle = exportTitle.replace(/[*<>?]/g, "");
+	exportTitle = exportTitle.replace(/<\/*i>/g, ""); // Italics
 	exportTitle = exportTitle.replace(/[/\\|]/g, "-");
-	exportTitle = exportTitle.replace(/[*<>? ]/g, "");
 
 	//Get the path of the vault
 	const vaultPath = this.app.vault.adapter.getBasePath();
