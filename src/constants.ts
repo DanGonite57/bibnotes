@@ -31,7 +31,7 @@ export const templatePlain =
 	"- **Uri**: {{uri}}\n" +
 	"- **Eprint**: {{eprint}}\n" +
 	"- **File**: {{file}}\n" +
-	"- **Local Library**: {{localLibrary}}\n" +
+	"- **Local Library**: [Zotero]({{localLibraryLink}})\n" +
 	"\n" +
 	"## Tags and Collections\n" +
 	"- **Keywords**: {{keywordsAll}}\n" +
@@ -88,7 +88,7 @@ export const templateAdmonition =
 	"> - **Uri**: {{uri}}\n" +
 	"> - **Eprint**: {{eprint}}\n" +
 	"> - **File**: {{file}}\n" +
-	"> - **Local Library**: {{localLibrary}}\n" +
+	"> - **Local Library**: [Zotero]({{localLibraryLink}})\n" +
 	"\n" +
 	"> [!note]- Tags and Collections\n" +
 	"> - **Keywords**: {{keywordsAll}}\n" +

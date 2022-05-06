@@ -84,6 +84,7 @@ export interface Reference {
 	}[];
 	file: string;
 	localLibrary: string;
+	localLibraryLink: string;
 	select: string;
 	attachments: {
 		dateAdded: string;
@@ -132,6 +133,7 @@ export interface AnnotationElements {
 	pageLabel: number;
 	attachmentURI: string;
 	zoteroBackLink: string;
+	annotationKey: string;
 }
 [];
 
