@@ -53,7 +53,7 @@ export const templatePlain =
 
 export const templateAdmonition =
 	"---\n" +
-	"tags: literature-note/{{itemType}}\n" +
+	"aliases: [{{citekey}}]\n" +
 	"---\n" +
 	"# {{title}}\n" +
 	"\n" +
@@ -77,8 +77,8 @@ export const templateAdmonition =
 	"> - **Pages**: {{pages}}\n" +
 	"> - **Year**: {{year}} \n" +
 	"> - **DOI**: [{{DOI}}](https://doi.org/{{DOI}})\n" +
-	"> - **ISSN**: {{ISSN}}\n" +
 	"> - **ISBN**: {{ISBN}}\n" +
+	"> - **ISSN**: {{ISSN}}\n" +
 	"\n" +
 	"> [!quote]- Abstract\n" +
 	"> {{abstractNote}}\n" +
