@@ -606,7 +606,6 @@ export default class MyPlugin extends Plugin {
                 attachmentURI: "",
                 zoteroBackLink: "",
                 annotationKey: "",
-                annotationKey: "",
             };
 
             lineElements.rowEdited = selectedLine;
@@ -1689,39 +1688,39 @@ export default class MyPlugin extends Plugin {
                 lineElements.rowEdited =
                     `- [ ] ` + lineElements.colourTemplateNoPrepend;
                 // if (
-                // 	lineElements.commentText !== "" &&
-                // 	lineElements.highlightText !== ""
+                //     lineElements.commentText !== "" &&
+                //     lineElements.highlightText !== ""
                 // ) {
-                // 	lineElements.rowEdited =
-                // 		`- [ ] ` +
-                // 		lineElements.commentFormattedNoPrepend +
-                // 		" - " +
-                // 		lineElements.highlightFormattedNoPrepend +
-                // 		lineElements.inlineTagsFormatted;
+                //     lineElements.rowEdited =
+                //         `- [ ] ` +
+                //         lineElements.commentFormattedNoPrepend +
+                //         " - " +
+                //         lineElements.highlightFormattedNoPrepend +
+                //         lineElements.inlineTagsFormatted;
                 // } else if (
-                // 	lineElements.commentText == "" &&
-                // 	lineElements.highlightText !== ""
+                //     lineElements.commentText == "" &&
+                //     lineElements.highlightText !== ""
                 // ) {
-                // 	lineElements.rowEdited =
-                // 		`- [ ] ` +
-                // 		colourTextBefore +
-                // 		highlightFormatBefore +
-                // 		lineElements.highlightText +
-                // 		highlightFormatAfter +
-                // 		lineElements.zoteroBackLink +
-                // 		colourTextAfter +
-                // 		lineElements.inlineTagsFormatted;;
+                //     lineElements.rowEdited =
+                //         `- [ ] ` +
+                //         colourTextBefore +
+                //         highlightFormatBefore +
+                //         lineElements.highlightText +
+                //         highlightFormatAfter +
+                //         lineElements.zoteroBackLink +
+                //         colourTextAfter +
+                //         lineElements.inlineTagsFormatted;
                 // } else if (
-                // 	lineElements.commentText !== "" &&
-                // 	lineElements.highlightText === ""
+                //     lineElements.commentText !== "" &&
+                //     lineElements.highlightText === ""
                 // ) {
-                // 	lineElements.rowEdited =
-                // 		`- [ ] ` +
-                // 		commentFormatBefore +
-                // 		lineElements.commentText +
-                // 		commentFormatAfter +
-                // 		lineElements.zoteroBackLink +
-                // 		lineElements.inlineTagsFormatted;;
+                //     lineElements.rowEdited =
+                //         `- [ ] ` +
+                //         commentFormatBefore +
+                //         lineElements.commentText +
+                //         commentFormatAfter +
+                //         lineElements.zoteroBackLink +
+                //         lineElements.inlineTagsFormatted;
                 // }
             }
 
@@ -1735,6 +1734,40 @@ export default class MyPlugin extends Plugin {
 
                 //Add the line to an index of lines to be removed
                 indexRowsToBeRemoved.push(i);
+            }
+
+            //FORMAT HIGHLIGHTED SENTENCES WITHOUT ANY COMMENT
+            //OR WITHOUT ANY SPECIAL CONSIDERATIONS
+            if (lineElements.annotationType === "noKey") {
+                if (lineElements.highlightText !== "") {
+                    lineElements.rowEdited =
+                        highlightPrepend +
+                        colourTextBefore +
+                        highlightFormatBefore +
+                        lineElements.highlightText +
+                        highlightFormatAfter +
+                        lineElements.citeKey +
+                        colourTextAfter;
+                    if (lineElements.commentText !== "") {
+                        lineElements.rowEdited =
+                            lineElements.rowEdited +
+                            commentPrepend +
+                            commentFormatBefore +
+                            lineElements.commentText +
+                            commentFormatAfter;
+                    }
+                    // 	//FORMAT THE COMMENTS ADDED OUTSIDE OF ANY ANNOTATION
+                } else if (
+                    lineElements.highlightText === "" &&
+                    lineElements.commentText !== ""
+                ) {
+                    lineElements.rowEdited =
+                        commentPrepend +
+                        commentFormatBefore +
+                        lineElements.commentText +
+                        commentFormatAfter +
+                        lineElements.zoteroBackLink;
+                }
             }
 
             //Copy the edited text into an array to be exported

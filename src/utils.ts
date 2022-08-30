@@ -25,12 +25,12 @@ export function replaceAllTemplates(
         // 	 Identify the keyword to be replaced
         const KW = entriesArray[z];
         const KW_Brackets = "{{" + KW + "}}";
+        let replacement = `${selectedEntry[KW as keyof Reference]}`;
+        // if (KW === "abstractNote") {
+        //     replacement = replacement.replaceAll("\n", "");
+        // }
         // 	 replace the keyword in the template
-        copy = replaceTemplate(
-            copy,
-            KW_Brackets,
-            `${selectedEntry[KW as keyof Reference]}`
-        ); // fixed the type
+        copy = replaceTemplate(copy, KW_Brackets, replacement); // fixed the type
     }
     return copy;
 }
