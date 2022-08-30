@@ -181,7 +181,10 @@ export class fuzzySelectEntryFromJson extends FuzzySuggestModal<Reference> {
             this.plugin.createNote(selectedEntry, this.data);
 
             //if the note is the last one to be processed, then open it
-            if (indexNoteToBeProcessed == citeKeyToBeProcessed.length - 1) {
+            if (
+                indexNoteToBeProcessed == citeKeyToBeProcessed.length - 1 &&
+                referenceSelected.citationKey !== "Entire Library"
+            ) {
                 openSelectedNote(
                     selectedEntry,
                     this.plugin.settings.exportTitle,
