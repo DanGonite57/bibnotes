@@ -423,8 +423,8 @@ export function createNoteTitle(
     while (exportTitle.contains("  ")) {
         exportTitle = exportTitle.replace("  ", " ");
     }
-    exportTitle = exportTitle.replace(/[*<>?]/g, "");
     exportTitle = exportTitle.replace(/<\/*i>/g, ""); // Italics
+    exportTitle = exportTitle.replace(/[*<>?]/g, "");
     exportTitle = exportTitle.replace(/[/\\|]/g, "-");
 
     //Get the path of the vault
