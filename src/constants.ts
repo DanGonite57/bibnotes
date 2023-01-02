@@ -4,7 +4,7 @@ export const templatePlain =
 	"# {{title}}\n" +
 	"\n" +
 	"## Metadata\n" +
-	"- **CiteKey**: {{citekey}}\n " +
+	"- **CiteKey**: {{citationKey}}\n " +
 	"- **Type**: {{itemType}}\n " +
 	"- **Title**: {{title}}, \n " +
 	"- **Author**: {{author}};  \n" +
@@ -53,16 +53,16 @@ export const templatePlain =
 
 export const templateAdmonition =
 	"---\n" +
-	"aliases: [{{citekey}}]\n" +
+	"aliases: [{{citationKey}}]\n" +
 	"---\n" +
 	"# {{title}}\n" +
 	"\n" +
 	"{{author}}\n" +
 	"\n" +
-	"{{citekey}}\n" +
+	"{{citationKey}}\n" +
 	"\n" +
 	"> [!info]- Metadata\n" +
-	"> - **CiteKey**: {{citekey}}\n" +
+	"> - **CiteKey**: {{citationKey}}\n" +
 	"> - **Type**: {{itemType}}\n" +
 	"> - **Author**: {{author}}\n" +
 	"> - **Editor**: {{editor}}\n" +
@@ -108,7 +108,7 @@ export const DEFAULT_SETTINGS: MyPluginSettings = {
 	lastUpdateDate: new Date("1995-12-17T03:24:00"),
 	updateLibrary: "Only update existing notes",
 	exportPath: "",
-	exportTitle: "{{citeKey}}",
+	exportTitle: "{{citationKey}}",
 	missingfield: "Leave placeholder",
 	saveManualEdits: "Save Entire Note",
 	saveManualEditsStart: "",
