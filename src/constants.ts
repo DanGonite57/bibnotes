@@ -96,6 +96,7 @@ export const templateAdmonition =
 	"----\n" +
 	"## Comments\n" +
 	"{{UserNotes}}\n" +
+	"\n" +
 	"----\n" +
 	"## Extracted Annotations\n" +
 	"{{PDFNotes}}";

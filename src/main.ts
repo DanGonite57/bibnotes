@@ -585,7 +585,8 @@ export default class MyPlugin extends Plugin {
 			selectedLine = replaceTemplate(selectedLine, "&amp;", "&")
 				.replace(/&lt;/g, "<")
 				.replace(/&gt;/g, ">")
-				.replace(/&amp;/g, "&");
+				.replace(/&amp;/g, "&")
+				.replace(/\\(\[|\])/g, "$1");
 
 			const lineElements: AnnotationElements = {
 				highlightText: "",
