@@ -237,6 +237,7 @@ export default class MyPlugin extends Plugin {
 		}
 
 		return {
+			highlightCustomTextBefore,
 			highlightFormatBefore,
 			highlightFormatAfter,
 			highlightPrepend,
@@ -1220,6 +1221,7 @@ export default class MyPlugin extends Plugin {
 			commentFormatAfter,
 			commentFormatBefore,
 			commentPrepend,
+			highlightCustomTextBefore,
 			highlightFormatAfter,
 			highlightFormatBefore,
 			highlightPrepend,
@@ -1632,14 +1634,12 @@ export default class MyPlugin extends Plugin {
 			// MERGE HIGHLIGHT WITH THE PREVIOUS ONE ABOVE
 			if (lineElements.annotationType === "typeMergeAbove") {
 				noteElements[i].rowEdited =
-					noteElements[i - 1].rowEdited
-						.replace(/\[.*\)/, "")
-						.replace(/\s+$/g, "") +
+					noteElements[i - 1].rowEdited +
+					// .replace(/\[.*\)/, "")
+					// .replace(/\s+$/g, "")
 					" " +
-					lineElements.highlightFormattedNoPrepend.replace(
-						/^\s+/g,
-						""
-					) +
+					highlightCustomTextBefore +
+					lineElements.colourTemplateNoPrepend.replace(/^\s+/g, "") +
 					lineElements.commentFormatted +
 					lineElements.inlineTagsFormatted;
 
