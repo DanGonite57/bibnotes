@@ -606,5 +606,5 @@ export function openSelectedNote(
 	const myFile = this.app.vault.getAbstractFileByPath(noteTitleShort);
 
 	//Open the Note in a new leaf
-	this.app.workspace.getUnpinnedLeaf().openFile(myFile);
+	this.app.workspace.getLeaf("tab").openFile(myFile);
 }
