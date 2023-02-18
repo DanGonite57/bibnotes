@@ -203,3 +203,9 @@ export const ITEMTYPE_ALIAS = new Map<string, string>([
 	["videoRecording", "video"],
 	["bookSection", "inbook"],
 ]);
+
+export const TURNDOWN_SETTINGS = {
+	headingStyle: "atx",
+	bulletListMarker: "-",
+	emDelimiter: "*",
+};

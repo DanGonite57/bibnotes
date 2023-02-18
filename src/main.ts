@@ -16,6 +16,7 @@ import "turndown";
 
 import {
 	DEFAULT_SETTINGS,
+	TURNDOWN_SETTINGS,
 	templateAdmonition,
 	templatePlain,
 	ITEMTYPE_ALIAS,
@@ -560,7 +561,7 @@ export default class MyPlugin extends Plugin {
 
 	parseAnnotationLinesintoElementsUserNote(note: string) {
 		// Replace html formatting with markdown formatting
-		const turndownService = new TurndownService();
+		const turndownService = new TurndownService(TURNDOWN_SETTINGS);
 		note = turndownService.turndown(note);
 
 		note = note
@@ -586,7 +587,11 @@ export default class MyPlugin extends Plugin {
 				.replace(/&lt;/g, "<")
 				.replace(/&gt;/g, ">")
 				.replace(/&amp;/g, "&")
-				.replace(/\\(\[|\])/g, "$1");
+				.replace(/\\(\[|\])/g, "$1")
+				.replace(/\\\*/g, "*")
+				.replace(/\\\\/g, "\\")
+				.replace(/\-   /g, "- ")
+				.replace(/\n +\n/g, "\n");
 
 			const lineElements: AnnotationElements = {
 				highlightText: "",
@@ -2064,8 +2069,9 @@ export default class MyPlugin extends Plugin {
 			this.keyWordArray = resultsLineElements.keywordArray;
 
 			//Create the annotation by merging the individial elements of rowEditedArray. Do the same for the colour
-			extractedAnnotations =
-				resultsLineElements.rowEditedArray.join("\n");
+			extractedAnnotations = resultsLineElements.rowEditedArray
+				.join("\n")
+				.replaceAll("\n\n\n", "\n\n");
 			extractedAnnotationsYellow =
 				resultsLineElements.highlightsYellow.join("\n");
 			extractedAnnotationsRed =
@@ -2096,7 +2102,7 @@ export default class MyPlugin extends Plugin {
 				Object.values(this.userNoteElements),
 				(note) => note.rowEdited
 			);
-			extractedUserNote = extractedUserNoteArray.join("\n");
+			extractedUserNote = extractedUserNoteArray.join("\n\n");
 		}
 
 		//Export both the extracted annotations, user annotation, and the keywords extracted in the object extractedNote
