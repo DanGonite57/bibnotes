@@ -2013,7 +2013,7 @@ export default class MyPlugin extends Plugin {
 				//Identify the extraction Type (Zotero vs. Zotfile)
 				let extractionType = undefined;
 
-				if (unescape(note).includes("<span class=")) {
+				if (unescape(note).includes('<span class="highlight"')) {
 					extractionType = "Zotero";
 				} else if (
 					unescape(note).includes(
