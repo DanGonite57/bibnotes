@@ -591,7 +591,11 @@ export default class MyPlugin extends Plugin {
 				.replace(/\\\*/g, "*")
 				.replace(/\\\\/g, "\\")
 				.replace(/\-   /g, "- ")
-				.replace(/\n +\n/g, "\n");
+				.replace(/\n +\n/g, "\n")
+				.replace(/’/g, "'")
+				.replace(/‘/g, "'")
+				.replace(/“/g, '"')
+				.replace(/”/g, '"');
 
 			const lineElements: AnnotationElements = {
 				highlightText: "",
