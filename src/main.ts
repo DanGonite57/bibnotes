@@ -293,7 +293,7 @@ export default class MyPlugin extends Plugin {
 		if (selectedEntry.hasOwnProperty("select")) {
 			selectedEntry.localLibrary =
 				"[Zotero](" + selectedEntry.select + ")";
-			selectedEntry.localLibraryLink = "(" + selectedEntry.select + ")";
+			selectedEntry.localLibraryLink = selectedEntry.select;
 		}
 
 		//Translate json item types to bibtex
