@@ -57,13 +57,8 @@ export const templateAdmonition =
 	"---\n" +
 	"# {{title}}\n" +
 	"\n" +
-	"{{author}}\n" +
-	"\n" +
-	"{{citationKey}}\n" +
-	"\n" +
-	"> [!info]- Metadata\n" +
+	"> [!info]+ Metadata\n" +
 	"> - **CiteKey**: {{citationKey}}\n" +
-	"> - **Type**: {{itemType}}\n" +
 	"> - **Author**: {{author}}\n" +
 	"> - **Editor**: {{editor}}\n" +
 	"> - **Translator**: {{translator}}\n" +
