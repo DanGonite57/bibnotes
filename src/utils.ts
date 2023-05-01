@@ -388,40 +388,49 @@ export function createNoteTitle(
 	exportPath: string
 ) {
 	//Replace the placeholders
-	exportTitle = exportTitle.replace("{{citeKey}}", selectedEntry.citationKey);
-	exportTitle = exportTitle.replace(
+	exportTitle = exportTitle.replaceAll(
+		"{{citeKey}}",
+		selectedEntry.citationKey
+	);
+	exportTitle = exportTitle.replaceAll(
 		"{{citationKey}}",
 		selectedEntry.citationKey
 	);
-	exportTitle = exportTitle.replace(
+	exportTitle = exportTitle.replaceAll(
 		"{{citationkey}}",
 		selectedEntry.citationKey
 	);
-	exportTitle = exportTitle.replace("{{citekey}}", selectedEntry.citationKey);
+	exportTitle = exportTitle.replaceAll(
+		"{{citekey}}",
+		selectedEntry.citationKey
+	);
 
 	if (ITEMTYPE_ALIAS.has(selectedEntry.itemType)) {
 		selectedEntry.itemType = ITEMTYPE_ALIAS.get(selectedEntry.itemType);
 	}
-	exportTitle = exportTitle.replace("{{itemType}}", selectedEntry.itemType);
+	exportTitle = exportTitle.replaceAll(
+		"{{itemType}}",
+		selectedEntry.itemType
+	);
 
-	exportTitle = exportTitle.replace("{{title}}", selectedEntry.title);
+	exportTitle = exportTitle.replaceAll("{{title}}", selectedEntry.title);
 
-	exportTitle = exportTitle.replace("{{author}}", selectedEntry.authorKey);
-	exportTitle = exportTitle.replace("{{authors}}", selectedEntry.authorKey);
+	exportTitle = exportTitle.replaceAll("{{author}}", selectedEntry.authorKey);
+	exportTitle = exportTitle.replaceAll(
+		"{{authors}}",
+		selectedEntry.authorKey
+	);
 
-	exportTitle = exportTitle.replace("{{year}}", selectedEntry.year);
-	exportTitle = exportTitle.replace("{{date}}", selectedEntry.year);
+	exportTitle = exportTitle.replaceAll("{{year}}", selectedEntry.year);
+	exportTitle = exportTitle.replaceAll("{{date}}", selectedEntry.year);
 
 	//Remove special characters from the name of the file
-	exportTitle = exportTitle.replace(" ", " ");
+	exportTitle = exportTitle.replaceAll(" ", " ");
+	exportTitle = exportTitle.replaceAll("? ", "- ");
+	exportTitle = exportTitle.replaceAll('"', "'");
+	exportTitle = exportTitle.replaceAll(": ", " - ");
 	while (exportTitle.contains("  ")) {
-		exportTitle = exportTitle.replace("  ", " ");
-	}
-	exportTitle = exportTitle.replace("? ", "- ");
-	exportTitle = exportTitle.replace('"', "'");
-	exportTitle = exportTitle.replace(": ", " - ");
-	while (exportTitle.contains("  ")) {
-		exportTitle = exportTitle.replace("  ", " ");
+		exportTitle = exportTitle.replaceAll("  ", " ");
 	}
 	exportTitle = exportTitle.replace(/<\/*i>/g, ""); // Italics
 	exportTitle = exportTitle.replace(/[*<>?]/g, "");
